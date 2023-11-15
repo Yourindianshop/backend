@@ -1,0 +1,55 @@
+CURENTLY USED:{
+
+    github organization: https://github.com/courier-service/
+
+      aws id: connect.qubit@gmail.com
+      AWS password: #@1QUBITtechnologyQUBIT1@#
+
+    AWS S3 : https://s3.console.aws.amazon.com/s3/buckets/qubit-curior-service?region=eu-north-1&tab=permissions
+
+    database: https://www.phpmyadmin.co/db_structure.php?server=1&db=sql6639861
+    mysql aws database: {
+        Host: qubit-tech.cewuwj1m8omi.eu-north-1.rds.amazonaws.com
+        user: admin
+        password: qubit-tech
+        port: 3306
+    }
+}         
+
+FOR SPARE: {
+ 
+    aws ec2 mysql password: qubit-tech
+    1. database info:{
+        Host: sql6.freesqldatabase.com
+        Database name: sql6639861
+        Database user: sql6639861
+        Database password: 7VrwFPs5qX
+        Port number: 3306
+    }
+}
+
+//query info
+//customer register
+{
+  "Name":"jk",
+  "Address":"Ahemadad",
+  "Address2":"Ld",
+  "Landmark":"College",
+  "City":"Ahemadabad",
+  "Contry":"india",
+  "State":"gujarat",
+  "pincode":361347,
+  "email":"jk@gmail.com",
+  "password":"1234",
+  "phoneNo":"1234567891"
+}
+
+{
+  "Wid":2,
+  "Name":"john dau",
+  "email":"jd@g.com",
+  "password":"1234",
+  "phoneNo":"1234567891",
+  "Status":1
+}
+backend url = "https://backend-veerengiri.vercel.app/"

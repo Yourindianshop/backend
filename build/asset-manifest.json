@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/static/css/main.988925b0.css",
+    "main.js": "/static/js/main.835a40d8.js",
+    "static/media/banner2.png": "/static/media/banner2.9c08738e459ec1b572c8.png",
+    "static/media/wh3.jpg": "/static/media/wh3.a9e79202eea041406a23.jpg",
+    "static/media/home.png": "/static/media/home.805743e870407292c296.png",
+    "static/media/calculator.png": "/static/media/calculator.130a54dec5c91551587d.png",
+    "static/media/plans-bg.png": "/static/media/plans-bg.98f06232dd441ad40d06.png",
+    "static/media/igbg.jpg": "/static/media/igbg.e5776cba3b84bfaf8f78.jpg",
+    "static/media/home1-section-4.jpg": "/static/media/home1-section-4.3c1629efa904df070793.jpg",
+    "static/media/services-bg-1.jpg": "/static/media/services-bg-1.9b553ee8251d6e526d35.jpg",
+    "static/media/home1-rev-3.jpg": "/static/media/home1-rev-3.142e9d95d183268f8cde.jpg",
+    "index.html": "/index.html",
+    "main.988925b0.css.map": "/static/css/main.988925b0.css.map",
+    "main.835a40d8.js.map": "/static/js/main.835a40d8.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.988925b0.css",
+    "static/js/main.835a40d8.js"
+  ]
+}
