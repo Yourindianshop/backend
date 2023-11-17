@@ -60,7 +60,7 @@ app.use(user);
 app.use(admin);
 app.use(Manager);
 app.use(Buser);
-app.use(shipment); // Use the shipment router
+// app.use(shipment); // Use the shipment router
 
 const port = process.env.PORT || 4000;
 schedule.schedule("0 0 0 * * * *", AtInterval);
