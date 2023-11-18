@@ -9,28 +9,28 @@ const envvar = require("dotenv");
 const schedule = require("node-cron");
 const { AtInterval, mid } = require("./router/Aws");
 const path = require("path");
-const pool = require("./router/pool");
-const mysql = require("mysql");
+// const pool = require("./router/pool");
+// const mysql = require("mysql");
 const shipment = require("./router/Shipment"); // Import the shipment router
 // const sm = require('./router/Mail')
 envvar.config();
 
-const connection = mysql.createConnection({
-  host: "localhost", // host for connection
-  port: 3306, // default port for mysql is 3306
-  database: "yourindianshop", // database from which we want to connect out node application
-  user: "root", // username of the mysql connection
-  password: "Rjt@ms70#2204", // password of the mysql connection
-});
+// const connection = mysql.createConnection({
+//   host: "localhost", // host for connection
+//   port: 3306, // default port for mysql is 3306
+//   database: "yourindianshop", // database from which we want to connect out node application
+//   user: "root", // username of the mysql connection
+//   password: "Rjt@ms70#2204", // password of the mysql connection
+// });
 
-connection.connect(function (err) {
-  if (err) {
-    console.log("error occurred while connecting");
-    console.log(err);
-  } else {
-    console.log("connection created with Mysql successfully");
-  }
-});
+// connection.connect(function (err) {
+//   if (err) {
+//     console.log("error occurred while connecting");
+//     console.log(err);
+//   } else {
+//     console.log("connection created with Mysql successfully");
+//   }
+// });
 
 app.use(
   cors({
@@ -60,7 +60,7 @@ app.use(user);
 app.use(admin);
 app.use(Manager);
 app.use(Buser);
-// app.use(shipment); // Use the shipment router
+app.use(shipment); // Use the shipment router
 
 const port = process.env.PORT || 4000;
 schedule.schedule("0 0 0 * * * *", AtInterval);

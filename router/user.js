@@ -260,8 +260,8 @@ router.post('/transaction',async (req,res)=>{
     general(query,[Cid,amount,note],res)
 })
 router.get('/updateWallate/:cid',async (req,res)=>{
-    const query ="update Customer set Wallete = (select sum(amount) from WalletTransaction where Status=0) where Cid = ?"
-    general(query,[parseInt(req.params.cid)],res);
+    const query ="update Customer set Wallete = (select sum(amount) from WalletTransaction where Status=0 and Cid=?) where Cid = ?"
+    general(query,[parseInt(req.params.cid),parseInt(req.params.cid)],res);
 })
 router.get("/transaction/:cid",async (req,res)=>{
     const {pg}=req.query ;
@@ -425,5 +425,9 @@ router.post('/addReview',async (req,res)=>{
 router.get("/Review",async (req,res)=>{
     general("select Review , Star , Name, Rid from Review r, Customer c where c.Cid=r.Cid;",[],res);
 });
+
+
+// Request for More Photos
+
 
 module.exports=router;
