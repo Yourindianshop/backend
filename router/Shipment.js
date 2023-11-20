@@ -18,13 +18,13 @@ router.post("/createShipping", (req, res) => {
       if (err) {
         console.error("Error creating Shipping record:", err);
         res.status(500).json({
-          success: false,
+           status:"error",
           message: "Error creating Shipping record",
         });
       } else {
         console.log("Shipping record created successfully.");
         res.status(201).json({
-          success: true,
+          status:"ok",
           message: "Shipping record created successfully",
         });
       }
@@ -39,13 +39,13 @@ router.get("/getAllShippers", (req, res) => {
     if (err) {
       console.error("Error fetching shipping methods:", err);
       res.status(500).json({
-        success: false,
+         status:"error",
         message: "Error fetching shipping methods",
       });
     } else {
       console.log("Shipping methods fetched successfully.");
       res.status(200).json({
-        success: true,
+        status:"ok",
         shippings: results,
       });
     }
@@ -62,19 +62,19 @@ router.get("/getShipment/:id", (req, res) => {
     if (err) {
       console.error("Error fetching shipment:", err);
       res.status(500).json({
-        success: false,
+         status:"error",
         message: "Error fetching shipment",
       });
     } else if (results.length === 0) {
       res.status(404).json({
-        success: false,
+         status:"error",
         message: "Shipment not found",
       });
     } else {
       const shipment = results[0];
       console.log("Shipment fetched successfully.");
       res.status(200).json({
-        success: true,
+        status:"ok",
         shipment,
       });
     }
@@ -99,18 +99,18 @@ router.put("/updateShipping/:id", (req, res) => {
       if (err) {
         console.error("Error updating Shipping record:", err);
         res.status(500).json({
-          success: false,
+          status:"error",
           message: "Error updating Shipping record",
         });
       } else if (results.affectedRows === 0) {
         res.status(404).json({
-          success: false,
+          status:"error",
           message: "Shipping record not found",
         });
       } else {
         console.log("Shipping record updated successfully.");
         res.status(200).json({
-          success: true,
+          status:"ok",
           message: "Shipping record updated successfully",
         });
       }
@@ -128,18 +128,18 @@ router.delete("/deleteShipping/:id", (req, res) => {
     if (err) {
       console.error("Error deleting Shipping record:", err);
       res.status(500).json({
-        success: false,
+         status:"error",
         message: "Error deleting Shipping record",
       });
     } else if (results.affectedRows === 0) {
       res.status(404).json({
-        success: false,
+         status:"error",
         message: "Shipping record not found",
       });
     } else {
       console.log("Shipping record deleted successfully.");
       res.status(200).json({
-        success: true,
+        status:"ok",
         message: "Shipping record deleted successfully",
       });
     }
