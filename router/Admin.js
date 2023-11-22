@@ -149,6 +149,7 @@ router.get("/getAllCoupens",async (req,res)=>{
 })
 router.get("/getCouponsForCustomer",async (req,res)=>{
     general("select * from Coupens where isOn=1 and  DATEDIFF(CURRENT_DATE, date) <= days;",[],res);
+    // general("select * from Coupens where isOn=1 ",[],res);
     // general("select * from Coupens where isOn=1",[],res);
 })
 router.get("/getCoupons/:cid",async (req,res)=>{
