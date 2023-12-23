@@ -5,12 +5,13 @@ const jwt = require('jsonwebtoken');
 const  emailjs = require('@emailjs/browser');
 const {SendMail2,MultipleMail }= require('./Mail');
 const jwt_code = process.env.JWT_CODE;
+const pagelimit = 2;
 
 //AUTHENTICATION
 
 router.post('/loginManager',async( req,res)=>{
     login("select * from Manager where email= ? and Wid is not NULL",req,res,0);
-})
+});
 
 router.post('/checkManagertoken',async (req,res)=>{
     try {
@@ -33,7 +34,7 @@ router.post('/checkManagertoken',async (req,res)=>{
     } catch (error) {
         res.json({status:'error',error})
     }
-})
+});
 router.get('/getCustomerByRid/:Rid',async (req,res)=>{
   general("select Cid, email from Customer where Cid in ( select Cid from PAR where Rid=? )",[req.params.Rid],res);  
 });
@@ -44,17 +45,35 @@ router.get('/getCustomerBySid/:Did',async (req,res)=>{
 // PRODUCT ACCEPTANCE REQUEST MANAGEMENT
 
 router.get('/getPAR/:wid',async (req,res)=>{
-    general("SELECT PAR.*, Customer.email AS email FROM PAR INNER JOIN Customer ON PAR.Cid = Customer.Cid WHERE PAR.Wid = ? ORDER BY PAR.time DESC;",[req.params.wid],res);
+    general("SELECT PAR.*, Customer.email AS email FROM PAR INNER JOIN Customer ON PAR.Cid = Customer.Cid WHERE PAR.Wid = ? ORDER BY PAR.time DESC ;",[req.params.wid],res);
+})
+router.get('/getPARP/:wid/:page',async (req,res)=>{
+    const skip  = ((req.params.page)-1)*pagelimit;
+    general("SELECT PAR.*, Customer.email AS email FROM PAR INNER JOIN Customer ON PAR.Cid = Customer.Cid WHERE PAR.Wid = ? and PAR.Verify!=1 ORDER BY PAR.time DESC  limit ? , ?;",[req.params.wid,skip,pagelimit],res);
+})
+router.get('/getPARA/:wid/:page',async (req,res)=>{
+    const skip  = ((req.params.page)-1)*pagelimit;
+    general("SELECT PAR.*, Customer.email AS email FROM PAR INNER JOIN Customer ON PAR.Cid = Customer.Cid WHERE PAR.Wid = ? and PAR.Verify=1 ORDER BY PAR.time DESC  limit ? , ?;",[req.params.wid,skip,pagelimit],res);
+})
+router.get("/searchPAR/:wid/:rid",async (req,res)=>{
+    general("SELECT PAR.*, Customer.email AS email FROM PAR INNER JOIN Customer ON PAR.Cid = Customer.Cid WHERE PAR.Wid = ? and PAR.Rid=? ORDER BY PAR.time DESC;",[req.params.wid,req.params.rid],res);
 })
 router.get("/getPARP/:wid",async (req,res)=>{
     query_string = "SELECT PAR.*, Customer.email as email,PlansCustomer.RenewIn as RenewIn FROM PAR JOIN PlansCustomer ON PAR.Wid = PlansCustomer.Wid AND PAR.Cid = PlansCustomer.Cid JOIN Customer ON PAR.Cid = Customer.Cid WHERE PAR.Wid = ? ORDER BY CASE WHEN PlansCustomer.RenewIn = -1 THEN 1 ELSE 0 END, CASE WHEN PlansCustomer.RenewIn = -1 THEN NULL ELSE PlansCustomer.RenewIn END ASC;"
     general(query_string,[req.params.wid],res);
 })
+router.get('/requestCountPARP/:wid', async (req,res)=>{
+    general("select count(*) as count from PAR where Wid=? and Verify!=1",[req.params.wid],res);
+})
+router.get('/requestCountPARA/:wid', async (req,res)=>{
+    general("select count(*) as count from PAR where Wid=? and Verify=1",[req.params.wid],res);
+})
+
 router.get('/verifyPAR/:rid', async (req,res)=>{
-    general("update PAR set Verify = 2 where Rid=?",[req.params.rid],res)
+    general("update PAR set Verify = 2 where Rid=?",[req.params.rid],res);
 })
 router.get("/submitPAR/:rid",async (req,res)=>{
-    general("update PAR set Verify = 1 where Rid=?",[req.params.rid],res)
+    general("update PAR set Verify = 1 where Rid=?",[req.params.rid],res);
 })
 router.delete('/rejectPAR/:rid',async (req,res)=>{
     general("delete from PAR where rid = ?",[req.params.rid],res);
