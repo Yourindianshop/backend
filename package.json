@@ -29,7 +29,9 @@
     "mysql": "^2.18.1",
     "mysql2": "^3.6.1",
     "node-cron": "^3.0.2",
+    "node-fetch": "^3.3.2",
     "node-schedule": "^2.1.1",
-    "nodemailer": "^6.9.4"
+    "nodemailer": "^6.9.4",
+    "razorpay": "^2.9.2"
   }
 }

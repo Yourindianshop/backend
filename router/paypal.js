@@ -1,7 +1,5 @@
 const express = require('express');
 const router = express.Router();
-// import 'dotenv/config';
-
 const environment = process.env.ENVIRONMENT || 'sandbox';
 const client_id = process.env.CLIENT_ID;
 const client_secret = process.env.CLIENT_SECRET;
@@ -80,6 +78,7 @@ router.post('/complete_order', (req, res) => {
         })
 });
 router.get("/hellopaypal",(req,res)=>{
+    console.log("hello paypal");
     res.json("hello paypal");
 })
 module.exports = router;

@@ -13,6 +13,7 @@ const path = require("path");
 // const mysql = require("mysql");
 const shipment = require("./router/Shipment"); // Import the shipment router
 const Paypal = require("./router/paypal");
+const Razorpay = require('./router/razorpay');
 // const sm = require('./router/Mail')
 envvar.config();
 
@@ -38,6 +39,7 @@ app.get("/admin", (req, res) => {
 app.use(express.static(path.join(__dirname, "build")));
 
 app.use(Paypal);
+app.use(Razorpay);
 app.use(mid);
 app.use(express.json());
 app.use(user);
