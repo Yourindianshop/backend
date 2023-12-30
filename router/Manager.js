@@ -1,6 +1,6 @@
 const express= require('express');
-const router = express.Router()
-const {general,login, sendEmailForExpiredPlan} = require('./Aws')
+const router = express.Router();
+const {general,login, sendEmailForExpiredPlan} = require('./Aws');
 const jwt = require('jsonwebtoken');
 const  emailjs = require('@emailjs/browser');
 const {SendMail2,MultipleMail }= require('./Mail');
