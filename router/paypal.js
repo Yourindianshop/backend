@@ -3,9 +3,10 @@ const router = express.Router();
 const environment = process.env.ENVIRONMENT || 'sandbox';
 const client_id = process.env.CLIENT_ID;
 const client_secret = process.env.CLIENT_SECRET;
-const endpoint_url = environment === 'sandbox' ? 'https://api-m.sandbox.paypal.com' : 'https://api-m.paypal.com';
+// const endpoint_url = environment === 'sandbox' ? 'https://api-m.sandbox.paypal.com' : 'https://api-m.paypal.com';
+const endpoint_url = environment ===  'https://api-m.paypal.com';
 
-function get_access_token() {
+async function get_access_token() {
     console.log("generate token")
     const auth = `${client_id}:${client_secret}`
     const data = 'grant_type=client_credentials'
@@ -21,6 +22,19 @@ function get_access_token() {
         .then(json => {
             return json.access_token;
         })
+}
+
+async function handleResponse(response) {
+    try {
+      const jsonResponse = await response.json();
+      return {
+        jsonResponse,
+        httpStatusCode: response.status,
+      };
+    } catch (err) {
+      const errorMessage = await response.text();
+      throw new Error(errorMessage);
+    }
 }
 
 router.post('/create_order', (req, res) => {
@@ -77,6 +91,9 @@ router.post('/complete_order', (req, res) => {
             res.status(500).send(err)
         })
 });
+
+
+
 router.get("/hellopaypal",(req,res)=>{
     console.log("hello paypal");
     res.json("hello paypal");
