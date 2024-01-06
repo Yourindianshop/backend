@@ -131,11 +131,7 @@ router.get('/getproducts/:prev',async (req,res)=>{
     const query = "select * from Products  limit ? , 5 "
     general(query,[parseInt(prev)],res)
 })
-router.post('/makeOrder',async (req,res)=>{
-    const {cid,pid,qtn,Oprice}=req.body;
-    const query = "insert into Orders (Cid,Pid,Qty,Oprice) values (?,?,?,?)"
-    general(query,[parseInt(cid),parseInt(pid),parseInt(qtn),parseInt(Oprice)],res)
-})
+
 
 // BUYING PLAN CREDENTIALS
 
@@ -429,5 +425,52 @@ router.get("/Review",async (req,res)=>{
 
 // Request for More Photos
 
+
+// ADD TO CART
+router.post('/addtocart',async (req,res)=>{
+    const {Pid,Cid,qty} = req.body;
+    general('insert into cart (productId,customerId,qty) values (?,?,?)',[Pid,Cid,qty],res);
+})
+router.get("/getCart/:cid",async (req,res)=>{
+    general("select cartid,Pid,qty,Name,Details,Images,Price from cart,Products where cart.ProductId = Products.Pid and customerId= ?",[req.params.cid],res);
+})
+router.get("/getOrders/:cid",async (req,res)=>{
+    general("select Orders.Oid,Orders.Pid,Qty as qty, Name, Images,Oprice as Price,time,Details  from Orders,Products where Orders.Pid = Products.Pid and Cid = ?",[req.params.cid],res);
+})
+router.get('/removeFromCart/:cartid',async (req,res)=>{
+    general("delete from cart where cartid=?",[req.params.cartid],res);
+})
+router.get("/updateCartqty/:cartid/:qty",async (req,res)=>{
+    const {qty,cartid}=req.params;
+    general("update cart set qty = ? where cartid = ?",[qty,cartid],res);
+})
+
+router.post('/makeOrder',async (req,res)=>{
+    const {cid,pid,qtn,Oprice}=req.body;
+    const query = "insert into Orders (Cid,Pid,Qty,Oprice) values (?,?,?,?)";
+    general(query,[parseInt(cid),parseInt(pid),parseInt(qtn),parseInt(Oprice)],res);
+})
+router.post('/orderCart',async (req,res)=>{
+    const {itemArr,Cid}=req.body;
+    // console.log(itemArr,Cid)
+    let isdone = true;
+    const query = "insert into Orders (Cid,Pid,Qty,Oprice) values (?,?,?,?)";
+    itemArr.forEach(i => {
+        const paray = [Cid,i.Pid,i.qty,i.Price*i.qty];
+        pool.query(query,paray,(err,result)=>{
+            if(err){
+                console.log("err in OrderCart ",err);
+                isdone = false;
+            }
+            // console.log(isdone);
+        })
+    });
+    if(isdone){
+        general("delete from cart where customerId = ?",[Cid],res);
+    }else{
+        // console.log("error");
+        res.json({status:'error'});
+    }
+})
 
 module.exports=router;

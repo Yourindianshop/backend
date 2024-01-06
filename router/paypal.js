@@ -1,17 +1,19 @@
 const express = require('express');
+// const axios = require('axios');
+
 const router = express.Router();
 const environment = process.env.ENVIRONMENT || 'sandbox';
+const endpoint_url = environment === 'sandbox' ? 'https://api-m.sandbox.paypal.com' : 'https://api-m.paypal.com';
 const client_id = process.env.CLIENT_ID;
 const client_secret = process.env.CLIENT_SECRET;
-// const endpoint_url = environment === 'sandbox' ? 'https://api-m.sandbox.paypal.com' : 'https://api-m.paypal.com';
-const endpoint_url = environment ===  'https://api-m.paypal.com';
+// const endpoint_url = environment ===  'https://api-m.paypal.com';
 
 async function get_access_token() {
     console.log("generate token")
     const auth = `${client_id}:${client_secret}`
     const data = 'grant_type=client_credentials'
     return fetch(endpoint_url + '/v1/oauth2/token', {
-            method: 'POST',
+            method:'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'Authorization': `Basic ${Buffer.from(auth).toString('base64')}`

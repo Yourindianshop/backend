@@ -19,6 +19,7 @@
   "dependencies": {
     "@emailjs/browser": "^3.11.0",
     "aws-sdk": "^2.1440.0",
+    "axios": "^1.6.5",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
