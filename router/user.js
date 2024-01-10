@@ -411,7 +411,6 @@ router.get('/sendVerifyMail/',async (req,res)=>{
     }
 });
 
-
 // REVIEW SECTION (Review,Star,Cid)
 
 router.post('/addReview',async (req,res)=>{
@@ -421,7 +420,6 @@ router.post('/addReview',async (req,res)=>{
 router.get("/Review",async (req,res)=>{
     general("select Review , Star , Name, Rid from Review r, Customer c where c.Cid=r.Cid;",[],res);
 });
-
 
 // Request for More Photos
 
@@ -435,7 +433,10 @@ router.get("/getCart/:cid",async (req,res)=>{
     general("select cartid,Pid,qty,Name,Details,Images,Price from cart,Products where cart.ProductId = Products.Pid and customerId= ?",[req.params.cid],res);
 })
 router.get("/getOrders/:cid",async (req,res)=>{
-    general("select Orders.Oid,Orders.Pid,Qty as qty, Name, Images,Oprice as Price,time,Details  from Orders,Products where Orders.Pid = Products.Pid and Cid = ?",[req.params.cid],res);
+    general("select Orders.Oid,Orders.Pid,Qty as qty, Name, Images,Oprice as Price,time,Details  from Orders,Products where Orders.Pid = Products.Pid and Cid = ? ",[req.params.cid],res);
+})
+router.get("/getallOrders",async (req,res)=>{
+    general("select Cid, Orders.Oid,Orders.Pid,Qty as qty, Name, Images,Oprice as Price,time  from Orders,Products where Orders.Pid = Products.Pid order by time desc ",[],res);
 })
 router.get('/removeFromCart/:cartid',async (req,res)=>{
     general("delete from cart where cartid=?",[req.params.cartid],res);
