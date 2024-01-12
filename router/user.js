@@ -92,6 +92,12 @@ router.post('/addUser',async (req,res)=>{
     const params = [body.Name,body.Address,body.Address2,body.Landmark,body.City,body.Contry,body.State,body.pincode,body.email,body.password,body.phoneNo];
     general(query,params,res)
 })  
+router.post('/ChangeAddress',async (req,res)=>{
+    const { user  } =req.body;
+    const query = "update Customer set Address = ?, Address2 = ?, City =?, State= ?, Landmark=?, Country = ?, pincode = ? where Cid = ?";
+    const params = [user.Address,user.Address2,user.City,user.State,user.Landmark,user.Country,user.pincode,user.Cid];
+    general(query,params,res);
+})
 router.post('/loginUser',async( req,res)=>{
     pool.query("update Customer set Time = CURRENT_TIMESTAMP where Email = ?",[req.body?.email]);
     login("select * from Customer where email= ? and isGoogle=0",req,res,1);
@@ -475,3 +481,4 @@ router.post('/orderCart',async (req,res)=>{
 })
 
 module.exports=router;
+
