@@ -17,8 +17,6 @@ const Razorpay = require('./router/razorpay');
 // const sm = require('./router/Mail')
 envvar.config();
 
-
-
 app.use(
   cors({
     origin: "*",
