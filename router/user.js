@@ -51,7 +51,7 @@ router.get('/getCustomer/:id',(req,res)=>{
     const {id}=req.params;
     const query = "select * from Customer where Cid = ?"
     const parray = [id];
-    general(query,parray,res)
+    general(query,parray,res);
 })
 router.get("/getCustomerbyEmail/:email",(req,res)=>{
     const {email}=req.params;
@@ -428,7 +428,11 @@ router.get("/Review",async (req,res)=>{
 });
 
 // Request for More Photos
-
+router.get("makeReqPhoto/:pid/:photos",async (req,res)=>{
+    const {pid,photos}= req.params;
+    general("insert into Request (Pid,value) values (?,?)",[],res);
+    res.json({status:'ok'});
+})
 
 // ADD TO CART
 router.post('/addtocart',async (req,res)=>{
@@ -481,4 +485,3 @@ router.post('/orderCart',async (req,res)=>{
 })
 
 module.exports=router;
-
