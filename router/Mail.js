@@ -13,8 +13,9 @@ const SendMail2 = async (reciver,html,subject)=>{
             user: email,
             pass: pass,
         },
+        
     });
-
+    console.log(email+" "+pass);
     let info = await transporter.sendMail({
         from: email,
         to: reciver,
